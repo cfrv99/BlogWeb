@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HomeTask2.ASPCore.Data.Post>
+
+@{
+    ViewData["Title"] = "UserPosts";
+}
+
+<h1>UserPosts</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PostName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostTitle)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostDate)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostTitle)
+            </td>
+           
+            <td>
+                @*@Html.DisplayFor(modelItem => item.ImageUrl)*@
+                <img width="100" src="~/img/@item.ImageUrl" alt="Alternate Text" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostDate)                
+            </td>
+            
+            <td>
+                
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

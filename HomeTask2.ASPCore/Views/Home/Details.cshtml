@@ -1,0 +1,61 @@
+﻿@model DetailViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="my-4">
+    <div class="card mb-4">
+        <img class="card-img-top" src="~/img/@Model.ImageUrl" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">@Model.PostTitle</h2>
+            <p class="card-text">@Model.PostName</p>
+            <p>@Model.PostDescription</p>
+            <p><i class="far fa-eye"></i> @Model.ShowingCount</p>
+        </div>
+        <div class="card-footer text-muted">
+            @Model.PostDate.ToString("MMMM dd") - <i class="fas fa-user"></i> @Model.PostUser
+            <a class="btn btn-light" asp-action="RelUserPost" asp-controller="Managment" asp-route-id="@Model.PostUserId">Get This Users Post</a>
+        </div>
+    </div>
+
+    @if (Model.Comments.Any() == false || Model.Comments == null)
+    {
+        <div class="alert alert-primary" role="alert">
+            Any Comments not!!!
+        </div>
+    }
+
+    @foreach (var item in Model.Comments)
+    {
+        <div class="media">
+            <div class="media">
+                <img width="40" src="~/userimg/@item.User.ImageUrl" class="align-self-start mr-3" alt="...">
+                <div style="width:250px" class="media-body">
+                    @if (User.Identity.IsAuthenticated && User.Identity.Name == item.User.UserName)
+                    {
+
+                        <span class="float-right"><a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"><i class="far fa-trash-alt"></i></a></span>
+                    }
+                    <h5 class="mt-0">By: @item.User.UserName</h5>
+                    <p>@item.Text</p>
+                </div>
+            </div>
+        </div>
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form asp-action="AddComment" asp-controller="Home" method="post">
+
+            <input type="hidden" asp-for="Comment.PostId" value="@Model.Id" />
+            <div class="form-group">
+                <label asp-for="Comment.Text">Example textarea</label>
+                <textarea class="form-control" asp-for="Comment.Text" rows="3"></textarea>
+            </div>
+
+            <input type="submit" class="btn btn-info" value="Go Comment" />
+        </form>
+
+    }
+</div>

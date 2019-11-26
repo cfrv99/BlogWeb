@@ -1,0 +1,32 @@
+﻿@model AddPostVM
+@{
+    ViewData["Title"] = "Add";
+
+}
+
+<h1>Add</h1>
+
+<div class="row my-5"></div>
+
+<form method="post" asp-action="Add" asp-controller="Managment" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input type="text" class="form-control" asp-for="Title" placeholder="Title">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+    </div>
+    <div class="md-form amber-textarea active-amber-textarea">
+        <i class="fas fa-pencil-alt prefix"></i>
+        <textarea asp-for="Description" class="md-textarea form-control" rows="3"></textarea>
+        <label asp-for="Description">Add Post Description</label>
+    </div>
+    <div class="form-group">
+        <label for="file">Example file input</label>
+        <input type="file" class="form-control-file" id="file" name="file">
+    </div>
+    <input class="btn badge-info" type="submit" value="Submit" />
+</form>

@@ -1,0 +1,50 @@
+﻿@model HomeTask2.ASPCore.Models.PostEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PostEditViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ExistImage" value="@Model.ImageUrl" />
+            <div class="form-group">
+                <label asp-for="PostTitle" class="control-label"></label>
+                <input asp-for="PostTitle" class="form-control" />
+                <span asp-validation-for="PostTitle" class="text-danger"></span>
+            </div>
+            <div class="md-form amber-textarea active-amber-textarea">
+                <i class="fas fa-pencil-alt prefix"></i>
+                <textarea asp-for="Description" class="md-textarea form-control" rows="3"></textarea>
+                <label asp-for="Description">Add Post Description</label>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostName" class="control-label"></label>
+                <input asp-for="PostName" class="form-control" />
+                <span asp-validation-for="PostName" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label for="file">Example file input</label>
+                <input type="file" class="form-control-file" id="file" name="file">
+            </div>
+            <div class="form-group">
+                <img class="img-thumbnail" width="220" src="~/img/@Model.ImageUrl" alt="Alternate Text" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

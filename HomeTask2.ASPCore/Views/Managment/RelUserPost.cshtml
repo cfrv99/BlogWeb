@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HomeTask2.ASPCore.Data.Post>
+@{
+    ViewData["Title"] = "RelUserPost";
+}
+
+<h1>RelUserPost</h1>
+
+<div class="row my-3">
+    <div class="col-md-8">
+        @if (Model.Any() == false && Model.Count() == 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                Is Not Exist Any Post!!!
+            </div>
+        }
+
+        @foreach (var item in Model)
+        {
+
+            <div class="card mb-4">
+                <img class="card-img-top" src="~/img/@item.ImageUrl" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title">@item.PostName</h2>
+                    <p class="card-text">@item.PostDescription.Substring(1, 120) ...</p>
+                    <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-primary">Read More &rarr;</a>
+                    @if (User.Identity.IsAuthenticated && User.Identity.Name == item.User.UserName)
+                    {
+                        <a href="#" class="btn btn-info">Edit </a> <span>(This is your post)</span>
+                    }
+                </div>
+                <div class="card-footer text-muted">
+                    @item.PostDate.ToString("MMMM dd") -  <i class="fas fa-user"></i>  @item.User.UserName
+                    <span><i class="far fa-eye"></i> @item.ShowingCount</span>
+                </div>
+
+            </div>
+
+
+        }
+    </div>
+</div>
